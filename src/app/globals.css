@@ -1,6 +1,17 @@
 @import "tailwindcss";
 
 :root {
+  --color-first: #003366;
+  --color-second: #6699CC;
+  --color-third: #E0E8F0;
+  --color-fourth: #FFFFFF;
+}
+
+body {
+  font-family: Quicksand;
+}
+
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -23,4 +34,4 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-}
+} */
