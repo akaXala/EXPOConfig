@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import NavBar from "@/components/NavBar";
 // Import de la fuente de Google Fonts
 import { Quicksand } from "next/font/google";
 
@@ -23,6 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+          
       <body
         className={`${quicksand.variable} ${quicksand.variable} antialiased`}
       >

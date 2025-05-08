@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import '@fontsource/quicksand';
+import '@fontsource/quicksand'; // Importar la fuente Quicksand
 
 const theme = createTheme({
     typography: {
