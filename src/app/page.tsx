@@ -20,7 +20,6 @@ export default function Home() {
   return (
     <ThemeProvider theme={theme} >
       <CssBaseline />
-      <>
         <header>
           <NavBar />
         </header>
@@ -56,7 +55,6 @@ export default function Home() {
         <footer>
 
         </footer>
-      </>
     </ThemeProvider>
   );
 }
