@@ -66,15 +66,16 @@ export default function HoverMenu({ triggerText, menuItems }: HoverMenuProps) {
           >
             <MenuList autoFocusItem={open}>
               {menuItems.map((itemData, index) => (
-                <MenuItem
+                <Link
                   key={index}
+                  href={itemData.url}
                 >
-                  <Link 
-                    href={itemData.url}
+                  <MenuItem
+                    key={index}
                   >
-                    {itemData.text}
-                  </Link>
-                </MenuItem>
+                      {itemData.text}
+                  </MenuItem>
+                </Link>
               ))}
             </MenuList>
           </Paper>
