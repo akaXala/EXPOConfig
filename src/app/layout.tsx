@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/components/NavBar";
 // Import de la fuente de Google Fonts
 import { Quicksand } from "next/font/google";
+import NavBar from "@/components/NavBar";
 
 // Fuente de Google Fonts
 const quicksand = Quicksand({
@@ -27,7 +28,12 @@ export default function RootLayout({
       <body
         className={`${quicksand.variable} ${quicksand.variable} antialiased`}
       >
-        {children} 
+        <header>
+          {/* <NavBar /> */}
+        </header>
+        <main>
+          {children}
+        </main> 
       </body>
     </html>
   );

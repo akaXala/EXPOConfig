@@ -43,10 +43,14 @@ CREATE TABLE Agenda (
 
 CREATE TABLE Usuario (
   NoTrabajador SERIAL PRIMARY KEY,
-  Nombre INT NOT NULL,
-  ApPaterno INT NOT NULL,
-  ApMaterno INT,
-  Contrasena INT NOT NULL
+  Nombre VARCHAR(75) NOT NULL,
+  ApPaterno VARCHAR(75) NOT NULL,
+  ApMaterno VARCHAR(75),
+  FechaNacimiento DATE NOT NULL,
+  Sexo VARCHAR(20) NOT NULL,
+  Telefono VARCHAR(10) NOT NULL,
+  Email VARCHAR(100) NOT NULL,
+  Contrasena VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE Impresiones (
@@ -154,3 +158,45 @@ CREATE TABLE VisitaEvento (
   FOREIGN KEY (NoBoleta) REFERENCES Asistente(NoBoleta),
   FOREIGN KEY (IdEvento) REFERENCES Evento(IdEvento)
 );
+
+-- Insertamos los datos de prueba en Usuarios y en su tipo de Usuario
+-- Profesor
+INSERT INTO Usuario (Nombre, ApPaterno, ApMaterno, FechaNacimiento, Sexo, Telefono, Email, Contrasena)
+VALUES ('Prueba', 'Prueba', '', '1990-01-01', 'Indefinido', '0123456789', 'pprueba1@profesor.expoconfig.mx', '$2b$10$ow9uOKyb0JZWAMdqQ39mPO0oLVK3kh7MFtDEPiD8KHDdhFkO1eXsm');
+INSERT INTO Profesor (NoTrabajador) VALUES (1);
+
+-- Organizador
+INSERT INTO Usuario (Nombre, ApPaterno, ApMaterno, FechaNacimiento, Sexo, Telefono, Email, Contrasena)
+VALUES ('Prueba', 'Prueba', '', '1990-01-01', 'Indefinido', '0123456789', 'pprueba2@organizador.expoconfig.mx', '$2b$10$SDw19AgYVwBlhvLTuzDMiO.mIwxc1g60RO1bcOZbrVL4UBEBn7Vlq');
+INSERT INTO Organizador (NoTrabajador) VALUES (2);
+
+-- Impresiones
+INSERT INTO Usuario (Nombre, ApPaterno, ApMaterno, FechaNacimiento, Sexo, Telefono, Email, Contrasena)
+VALUES ('Prueba', 'Prueba', '', '1990-01-01', 'Indefinido', '0123456789', 'pprueba3@impresiones.expoconfig.mx', '$2b$10$GNMp3yGIVaLBzn9yC9ZQqudAnpJjTopqi6JJkumXTfpLhSQs6.JdS');
+INSERT INTO Impresiones (NoTrabajador) VALUES (3);
+
+-- Administrador
+INSERT INTO Usuario (Nombre, ApPaterno, ApMaterno, FechaNacimiento, Sexo, Telefono, Email, Contrasena)
+VALUES ('Prueba', 'Prueba', '', '1990-01-01', 'Indefinido', '0123456789', 'pprueba4@administrador.expoconfig.mx', '$2b$10$Y1SgrwuWBcrury20hM0tOeBc4xz6xJAds3uxS.PzT513fTV3a4OsO');
+INSERT INTO Administrador (NoTrabajador) VALUES (4);
+
+-- Creacion de vistas para logins
+CREATE VIEW proflogin AS
+SELECT u.notrabajador, u.email, u.contrasena
+FROM usuario u
+INNER JOIN profesor p ON u.notrabajador = p.notrabajador;
+
+CREATE VIEW orglogin AS
+SELECT u.notrabajador, u.email, u.contrasena
+FROM usuario u
+INNER JOIN organizador o ON u.notrabajador = o.notrabajador;
+
+CREATE VIEW imprlogin AS
+SELECT u.notrabajador, u.email, u.contrasena
+FROM usuario u
+INNER JOIN impresiones i ON u.notrabajador = i.notrabajador;
+
+CREATE VIEW adminlogin AS
+SELECT u.notrabajador, u.email, u.contrasena
+FROM usuario u
+INNER JOIN administrador a ON u.notrabajador = a.notrabajador;
