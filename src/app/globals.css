@@ -11,6 +11,10 @@ body {
   font-family: Quicksand;
 }
 
+.text-field {
+  width: 100%;
+}
+
 /* :root {
   --background: #ffffff;
   --foreground: #171717;

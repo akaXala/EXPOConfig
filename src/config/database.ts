@@ -2,7 +2,7 @@
 import { Pool } from 'pg';
 
 // Para certificados SSL
-import fs from 'fs';
+// import fs from 'fs';
 import path from 'path';
 
 // Ruta al archivo .pem
@@ -22,3 +22,5 @@ const pool = new Pool({
 });
 
 export default pool;
+
+// Lo que esta comentado será necesario cuando se haga la DB en RDS de AWS

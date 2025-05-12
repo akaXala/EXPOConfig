@@ -1,22 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-const SECRET_KEY = new TextEncoder().encode(process.env.SECRET_KEY || "tu-clave-secreta");
+const SECRET_KEY = new TextEncoder().encode(process.env.SECRET_KEY || process.env.SECRET_KEY2  || "tu-clave-secreta");
 
 // Rutas protegidas por rol
 const roleBasedRoutes: Record<string, string[]> = {
-  administrador: ["/administrador", "/registro"],
-  instructor: ["/instructor"],
-  organizador: ["/organizador", "/eventos"],
-  competidor: ["/competidor", "/eventos-competidor"],
+  administrador: ["/administrador"],
+  impresiones: ["/impresiones"],
+  organizador: ["/organizador"],
+  profesor: ["/profesor"],
 };
 
 // Página inicial por rol
 const roleHomePages: Record<string, string> = {
   administrador: "/administrador",
-  instructor: "/instructor",
+  impresiones: "/impresiones",
   organizador: "/organizador",
-  competidor: "/competidor",
+  profesor: "/profesor",
 };
 
 export async function middleware(req: NextRequest) {
@@ -60,5 +60,5 @@ export async function middleware(req: NextRequest) {
 
 // Configuración del middleware para todas las rutas
 export const config = {
-  matcher: ["/", "/administrador/:path*", "/instructor/:path*", "/organizador/:path*", "/competidor/:path*", "/eventos/:path*", "/registro/:path*"],
+  matcher: ["/", "/administrador/:path*", "/impresiones/:path*", "/organizador/:path*", "/profesor/:path*"],
 };

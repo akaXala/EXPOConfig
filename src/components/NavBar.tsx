@@ -1,3 +1,5 @@
+"use client";
+
 // Componentes MUI
 import { Box, Grid, Typography, Divider } from '@mui/material';
 
