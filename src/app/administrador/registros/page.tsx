@@ -5,6 +5,9 @@ import * as React from 'react';
 // Componentes MUI
 import { Box, Grid, Typography, Button, TextField, MenuItem } from '@mui/material'
 
+// Componente SweetAlert
+import { mostrarAlerta } from '@/components/sweetAlert/modalAlerts';
+
 // Validaciones
 import { expresiones, mensajesError } from "@/ts/validationsSpecial";
 
@@ -151,7 +154,7 @@ export default function Home() {
         }
 
         const newEmail = formData.nombre.charAt(0).toLocaleLowerCase()+
-                         formData.apellidoPaterno.toLocaleLowerCase()+
+                         quitarCaracteresEspeciales(formData.apellidoPaterno.toLocaleLowerCase())+
                          formData.apellidoMaterno.charAt(0).toLocaleLowerCase()+
                          id+
                          "@" + formData.usuario.toLocaleLowerCase() + ".expoconfig.mx";
@@ -186,20 +189,20 @@ export default function Home() {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.log(errorData);
-                // mostrarAlerta("Error al registrar", `${errorData.error}`, "Aceptar", "error");
+                mostrarAlerta("Error al registrar", `${errorData.error}`, "Aceptar", "error");
                 return;
             }
         
             const data = await response.json();
         
             if (data.success) {
-                // mostrarAlerta("¡Administador registrado exitosamente!", `"Correo: ${newEmail}"`, "Aceptar", "success");
+                mostrarAlerta("¡Administador registrado exitosamente!", `"Correo: ${newEmail}"`, "Aceptar", "success");
             } else {
-                // mostrarAlerta("Error al registrar", `${data.error}`, "Aceptar", "error");
+                mostrarAlerta("Error al registrar", `${data.error}`, "Aceptar", "error");
             }
         } catch (error) {
             console.error("Error al registrar:", error);
-            // mostrarAlerta("Hubo un problema con el registro", "Inténtalo de nuevo", "Aceptar", "error");
+            mostrarAlerta("Hubo un problema con el registro", "Inténtalo de nuevo", "Aceptar", "error");
         }
 
         try {
