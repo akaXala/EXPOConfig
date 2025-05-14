@@ -8,6 +8,7 @@ import EnhancedTable from "@/components/table/ViewProjects"
 import NavBar from "@/components/NavBar";
 // Tema Custom
 import { theme } from '@/ts/customTheme';
+import ViewProject from '@/components/table/ViewProjects';
 
 
 export default function Page() {
@@ -19,20 +20,11 @@ export default function Page() {
         </header>
         <section>
           <Grid container  spacing={2} marginX={{xs:10, md:20}}>
-            <Grid size={12} display="flex" justifyContent="center" p={5}>
-              <Typography variant="h3">Proyectos</Typography>
-            </Grid>
-            <Grid  size='grow'>
-              <TextField fullWidth id="TextSearching" label="Poject" variant="outlined" size='small'/>
-            </Grid>
-            <Grid  size='auto' display="flex" alignItems="center">
-              <Button variant="contained" size='large' color="primary">Buscar</Button>
-            </Grid>
-            <Grid size={12}>
-              <Box bgcolor="lightblue">Filtros</Box>
+            <Grid size={12} display="flex" justifyContent="center" p={1}>
+              <Typography variant="h4">Proyectos</Typography>
             </Grid>
             <Grid size={12} minHeight={300}>
-              <EnhancedTable/>
+              <ViewProject/>
             </Grid>
           </Grid>
         </section>

@@ -1,228 +1,237 @@
-import { Table, TableContainer,TableHead, TableRow, TableCell, TableSortLabel, TableBody, TablePagination} from "@mui/material";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import { visuallyHidden } from '@mui/utils';
-import React from "react";
-interface Data {
+'use client';
+
+import {
+  Box,
+  TextField,
+  InputAdornment,
+  MenuItem,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Pagination,
+  IconButton,
+  Button,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { useEffect, useState, useMemo } from 'react';
+
+type Project = {
+  idproyecto: number;
+  estudiante: string;
+  nombre_proyecto: string;
+  ua: string;
+  grupo: string;
+  academia: string;
+  profesor: string;
+};
+
+type ProjectParse = {
   id: number;
-  projectname: string;
-  authors: string;
-  teachers: string;
-}
-function createData(
-  id: number,
-  projectname: string,
-  authors: string,
-  teachers: string,
-): Data {
-  return {
-    id, projectname,authors, teachers
-  };
-}
-const rows = [
-  createData(1, 'Proyecto 1', 'Luis, Pepe', 'José Manuel'),
-  createData(2, 'Sistema de Inventario', 'Ana, Carlos', 'Laura Gómez'),
-  createData(3, 'App de Finanzas', 'María, Jorge', 'Luis Herrera'),
-  createData(4, 'Juego Educativo', 'Sofía, Andrés', 'Diego Díaz'),
-  createData(5, 'Plataforma de Cursos', 'Emiliano, Valeria', 'Carmen Ruiz'),
-  createData(6, 'Proyecto 1', 'Luis, Pepe', 'José Manuel'),
-  createData(7, 'Sistema de Inventario', 'Ana, Carlos', 'Laura Gómez'),
-  createData(8, 'App de Finanzas', 'María, Jorge', 'Luis Herrera'),
-  createData(9, 'Juego Educativo', 'Sofía, Andrés', 'Diego Díaz'),
-  createData(10, 'Plataforma de Cursos', 'Emiliano, Valeria', 'Carmen Ruiz'),
-  createData(11, 'Proyecto 1', 'Luis, Pepe', 'José Manuel'),
-  createData(12, 'Sistema de Inventario', 'Ana, Carlos', 'Laura Gómez'),
-  createData(13, 'App de Finanzas', 'María, Jorge', 'Luis Herrera'),
-  createData(14, 'Juego Educativo', 'Sofía, Andrés', 'Diego Díaz'),
-  createData(15, 'Plataforma de Cursos', 'Emiliano, Valeria', 'Carmen Ruiz'),
-  createData(16, 'Proyecto 1', 'Luis, Pepe', 'José Manuel'),
-  createData(17, 'Sistema de Inventario', 'Ana, Carlos', 'Laura Gómez'),
-  createData(18, 'App de Finanzas', 'María, Jorge', 'Luis Herrera'),
-  createData(19, 'Juego Educativo', 'Sofía, Andrés', 'Diego Díaz'),
-  createData(20, 'Plataforma de Cursos', 'Emiliano, Valeria', 'Carmen Ruiz'),
-];
+  estudiante: string;
+  titulo: string;
+  materia: string;
+  semestre: string;
+  carrera: string;
+  academia: string;
+  profesor: string;
+};
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
+function parseData(data: Project[]): ProjectParse[] {
+  return data.map((item) => {
+    const carrera =
+      item.grupo.charAt(1) === 'A'
+        ? 'Ciencia de datos'
+        : item.grupo.charAt(1) === 'B'
+        ? 'Inteligencia Artificial'
+        : 'Sistemas Computacionales';
+
+    return {
+      id: item.idproyecto,
+      estudiante: item.estudiante,
+      titulo: item.nombre_proyecto,
+      materia: item.ua,
+      semestre: item.grupo.charAt(0),
+      carrera,
+      academia: item.academia,
+      profesor: item.profesor,
+    };
+  });
 }
 
-type Order = 'asc' | 'desc';
+const ITEMS_PER_PAGE = 5;
 
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
-) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-interface HeadCell {
-  id: keyof Data;
-  label: string;
-}
+const ViewProject = () => {
+  const [parsedProjects, setProjects] = useState<ProjectParse[]>([]);
+  const [filteredOption, setFilteredOptions] = useState<Map<string, string[]>>(new Map());
+  const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState({
+    academia: '',
+    semestre: '',
+    carrera: '',
+    materia: '',
+    profesor: '',
+  });
+  const [sortConfig, setSortConfig] = useState<{ key: keyof ProjectParse; direction: 'asc' | 'desc' }>({
+    key: 'titulo',
+    direction: 'asc',
+  });
+  const [page, setPage] = useState(1);
 
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'projectname',
-    label: 'Nombre del Proyecto',
-  },
-  {
-    id: 'authors',
-    label: 'Autor(es)',
-  },
-  {
-    id: 'teachers',
-    label: 'Profesor(es)',
-  },
-];
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('/api/proyectos');
+      const data: Project[] = await res.json();
+      const parsedData: ProjectParse[] = parseData(data);
 
-interface EnhancedTableProps {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
+      const filteredOptions = new Map<string, string[]>();
+      filteredOptions.set('academia', [...new Set(parsedData.map((p) => p.academia))]);
+      filteredOptions.set('semestre', [...new Set(parsedData.map((p) => p.semestre))]);
+      filteredOptions.set('carrera', [...new Set(parsedData.map((p) => p.carrera))]);
+      filteredOptions.set('materia', [...new Set(parsedData.map((p) => p.materia))]);
+      filteredOptions.set('profesor', [...new Set(parsedData.map((p) => p.profesor))]);
 
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const {  order, orderBy, rowCount, onRequestSort } =
-    props;
-  const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
+      setProjects(parsedData);
+      setFilteredOptions(filteredOptions);
     };
 
+    fetchData();
+  }, []);
+
+  const handleFilterChange = (key: keyof typeof filters, value: string) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+    setPage(1);
+  };
+
+  const handleSort = (key: keyof ProjectParse) => {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc',
+    }));
+  };
+
+  const filteredProjects = useMemo(() => {
+    return parsedProjects.filter((project) => {
+      return (
+        Object.entries(filters).every(([key, value]) =>
+          value === '' ? true : project[key as keyof typeof filters] === value
+        ) &&
+        [project.titulo, project.estudiante, project.profesor].some(field =>
+         field.toLowerCase().includes(search.toLowerCase())
+      )
+
+      );
+    });
+  }, [parsedProjects, filters, search]);
+
+  const sortedProjects = useMemo(() => {
+    return [...filteredProjects].sort((a, b) => {
+      const valA = a[sortConfig.key];
+      const valB = b[sortConfig.key];
+      return sortConfig.direction === 'asc'
+        ? String(valA).localeCompare(String(valB))
+        : String(valB).localeCompare(String(valA));
+    });
+  }, [filteredProjects, sortConfig]);
+
+  const paginatedProjects = useMemo(() => {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    return sortedProjects.slice(start, start + ITEMS_PER_PAGE);
+  }, [sortedProjects, page]);
+
+  const handlePageChange = (_: any, value: number) => {
+    setPage(value);
+  };
+
   return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align='left'
-            padding='normal'
-            sortDirection={orderBy === headCell.id ? order : false}
-            sx={{width: '33%'}}
+    <Box p={1}>
+      <TextField
+        fullWidth
+        size='small'
+        placeholder="Buscar proyectos..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          },
+        }}
+        sx={{ mb: 3 }}
+      />
+
+      <Box display="flex" justifyContent="center" gap={2} flexWrap="wrap" mb={3}>
+        {(['academia', 'semestre', 'carrera', 'materia', 'profesor'] as const).map((key) => (
+          <TextField
+            key={key}
+            select
+            size='small'
+            label={key.charAt(0).toUpperCase() + key.slice(1)}
+            value={filters[key]}
+            onChange={(e) => handleFilterChange(key, e.target.value)}
+            sx={{ minWidth: 180 }}
           >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
+            <MenuItem value="">Todos</MenuItem>
+            {(filteredOption.get(key) || []).map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
         ))}
-      </TableRow>
-    </TableHead>
-  );
-}
+      </Box>
 
-
-export default function ViewProjects(){
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('projectname');
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data,
-  ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  const visibleRows = React.useMemo(
-    () =>
-      [...rows]
-        .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage],
-  );
-
-    return (
-      <Box sx={{ width: '100%' }}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer>
-        <Table size= 'medium' aria-labelledby="tableTitle">
-          <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
+      <TableContainer component={Paper}>
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              {(['titulo', 'estudiante', 'profesor'] as const).map((key) => (
+                <TableCell key={key}>
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                  <IconButton onClick={() => handleSort(key)} size="small">
+                    {sortConfig.key === key && sortConfig.direction === 'asc' ? (
+                      <ArrowUpwardIcon fontSize="small" />
+                    ) : (
+                      <ArrowDownwardIcon fontSize="small" />
+                    )}
+                  </IconButton>
+                </TableCell>
+              ))}
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
-              {visibleRows.map((row, index) => {
-                const labelId = `enhanced-table-checkbox-${index}`;
-                return (
-                  <TableRow key={row.id}>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="normal"
-                      align="left"
-                    >
-                      {row.projectname}
-                    </TableCell>
-                    <TableCell align="left">{row.authors}</TableCell>
-                    <TableCell align="left">{row.teachers}</TableCell>
-                  </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 53 * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={2} />
-                </TableRow>
-              )}
-            </TableBody>
-            </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
+            {paginatedProjects.map((project) => (
+              <TableRow key={project.id}>
+                <TableCell>{project.titulo}</TableCell>
+                <TableCell>{project.estudiante}</TableCell>
+                <TableCell>{project.profesor}</TableCell>
+                <TableCell><Button>{project.id}</Button></TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Box display="flex" justifyContent="center" mt={4}>
+        <Pagination
+          count={Math.ceil(filteredProjects.length / ITEMS_PER_PAGE)}
           page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          onChange={handlePageChange}
+          color="primary"
         />
-        
-        </Paper>
-        </Box>
-    )
-}
+      </Box>
+    </Box>
+  );
+};
+
+export default ViewProject;
