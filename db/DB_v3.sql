@@ -180,6 +180,38 @@ INSERT INTO Usuario (Nombre, ApPaterno, ApMaterno, FechaNacimiento, Sexo, Telefo
 VALUES ('Prueba', 'Prueba', '', '1990-01-01', 'Indefinido', '0123456789', 'pprueba4@administrador.expoconfig.mx', '$2b$10$Y1SgrwuWBcrury20hM0tOeBc4xz6xJAds3uxS.PzT513fTV3a4OsO');
 INSERT INTO Administrador (NoTrabajador) VALUES (4);
 
+-- Estudiante
+INSERT INTO Estudiante (NoBoleta, Nombre, ApPaterno, ApMaterno, Carrera)
+VALUES ('1234567890', 'Prueba', 'Prueba', '', 'ISC');
+INSERT INTO Estudiante (NoBoleta, Nombre, ApPaterno, ApMaterno, Carrera)
+VALUES ('1234567893', 'Prueba2', 'Prueba2', 'P2', 'LC');
+
+--Proyecto
+INSERT INTO Proyecto (Nombre, UA, Grupo, Academia, Descripcion, Cartel)
+VALUES ('Proyecto de Prueba', 'UA de Prueba', 'Grupo de Prueba', 'Academia de Prueba', 'Descripcion de prueba', 'Cartel de prueba');
+INSERT INTO Proyecto (Nombre, UA, Grupo, Academia, Descripcion, Cartel)
+VALUES ('Proyecto de Prueba2', 'UA de Prueba2', 'Grupo de Prueba2', 'Academia de Prueba2', 'Descripcion de prueba2', 'Cartel de 2');
+
+-- Tutor
+INSERT INTO Tutor (Materia, NoTrabajador)
+VALUES (1, 1);
+
+-- Tutor x Proyecto
+INSERT INTO ParticipaTutor (NoTrabajador, NoProyecto)
+VALUES (1, 1);
+INSERT INTO ParticipaTutor (NoTrabajador, NoProyecto)
+VALUES (1, 2);
+
+
+-- Estudiante x Proyecto
+INSERT INTO ParticipaEstudiante (NoBoleta, NoProyecto)
+VALUES ('1234567890', 2);
+INSERT INTO ParticipaEstudiante (NoBoleta, NoProyecto)
+VALUES ('1234567890', 1);
+INSERT INTO ParticipaEstudiante (NoBoleta, NoProyecto)
+VALUES ('1234567893', 3);
+
+
 -- Creacion de vistas para logins
 CREATE VIEW proflogin AS
 SELECT u.notrabajador, u.email, u.contrasena
@@ -200,3 +232,21 @@ CREATE VIEW adminlogin AS
 SELECT u.notrabajador, u.email, u.contrasena
 FROM usuario u
 INNER JOIN administrador a ON u.notrabajador = a.notrabajador;
+
+CREATE VIEW estudia AS
+SELECT e.nombre, e.apaterno, e.amaterno, p.nombre AS nombre_proyecto, p.ua,  p.grupo, p.academia
+FROM estudiante e
+INNER JOIN participaestudiante pe ON e.noboleta = pe.noboleta
+INNER JOIN proyecto p ON pe.noproyecto = p.noproyecto;
+ 
+CREATE VIEW dashboardproyectoview AS
+SELECT e.nombre || e.appaterno || e.apmaterno AS estudiante, 
+pr.noproyecto as idproyecto, pr.nombre AS nombre_proyecto, pr.ua,  pr.grupo, pr.academia,
+u.nombre || u.appaterno  || u.apmaterno AS profesor
+FROM estudiante e
+INNER JOIN participaestudiante pe ON e.noboleta = pe.noboleta
+INNER JOIN proyecto pr ON pe.noproyecto = pr.noproyecto
+INNER JOIN participatutor tp ON pr.noproyecto = tp.noproyecto
+INNER JOIN tutor t ON tp.notrabajador = t.notrabajador
+INNER JOIN profesor prof ON tp.notrabajador = prof.notrabajador
+INNER JOIN usuario u ON tp.notrabajador = u.notrabajador;
