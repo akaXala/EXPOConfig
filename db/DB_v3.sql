@@ -188,9 +188,11 @@ VALUES ('1234567893', 'Prueba2', 'Prueba2', 'P2', 'LC');
 
 --Proyecto
 INSERT INTO Proyecto (Nombre, UA, Grupo, Academia, Descripcion, Cartel)
-VALUES ('Proyecto de Prueba', 'UA de Prueba', 'Grupo de Prueba', 'Academia de Prueba', 'Descripcion de prueba', 'Cartel de prueba');
+VALUES ('Proyecto de Prueba', 'UA de Prueba', '5CM1', 'Academia de Prueba', 'Descripcion de prueba', 'Cartel de prueba');
 INSERT INTO Proyecto (Nombre, UA, Grupo, Academia, Descripcion, Cartel)
-VALUES ('Proyecto de Prueba2', 'UA de Prueba2', 'Grupo de Prueba2', 'Academia de Prueba2', 'Descripcion de prueba2', 'Cartel de 2');
+VALUES ('Proyecto de Prueba2', 'UA de Prueba2', '1BM2', 'Academia de Prueba2', 'Descripcion de prueba2', 'Cartel de 2');
+INSERT INTO Proyecto (Nombre, UA, Grupo, Academia, Descripcion, Cartel)
+VALUES ('Proyecto de Prueba3', 'UA de Prueba3', '1AI3', 'Academia de Prueba3', 'Descripcion de prueba3', 'Cartel de 3');
 
 -- Tutor
 INSERT INTO Tutor (Materia, NoTrabajador)
@@ -232,12 +234,6 @@ CREATE VIEW adminlogin AS
 SELECT u.notrabajador, u.email, u.contrasena
 FROM usuario u
 INNER JOIN administrador a ON u.notrabajador = a.notrabajador;
-
-CREATE VIEW estudia AS
-SELECT e.nombre, e.apaterno, e.amaterno, p.nombre AS nombre_proyecto, p.ua,  p.grupo, p.academia
-FROM estudiante e
-INNER JOIN participaestudiante pe ON e.noboleta = pe.noboleta
-INNER JOIN proyecto p ON pe.noproyecto = p.noproyecto;
  
 CREATE VIEW dashboardproyectoview AS
 SELECT e.nombre || e.appaterno || e.apmaterno AS estudiante, 
