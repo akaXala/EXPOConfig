@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const query = `SELECT * FROM dashboardproyectoview`;
     const result = await pool.query(query);
-    console.log(result.rows);
+    //console.log(result.rows);
     return NextResponse.json(result.rows);
     
   } catch (error) {
