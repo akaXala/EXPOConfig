@@ -21,6 +21,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useEffect, useState, useMemo } from 'react';
+// Agrega al principio
+import ProjectModal from '@/components/table/ProjectModal'; // Ajusta la ruta según tu estructura
+
+
 
 type Project = {
   idproyecto: number;
@@ -68,6 +72,19 @@ function parseData(data: Project[]): ProjectParse[] {
 const ITEMS_PER_PAGE = 5;
 
 const ViewProject = () => {
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
+
+  const handleOpenModal = (id: number) => {
+    setSelectedProjectId(id);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   const [parsedProjects, setProjects] = useState<ProjectParse[]>([]);
   const [filteredOption, setFilteredOptions] = useState<Map<string, string[]>>(new Map());
   const [search, setSearch] = useState('');
@@ -86,7 +103,7 @@ const ViewProject = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('/api/proyectos');
+      const res = await fetch('/api/proyectos/dashboardProjects');
       const data: Project[] = await res.json();
       const parsedData: ProjectParse[] = parseData(data);
 
@@ -215,7 +232,12 @@ const ViewProject = () => {
                 <TableCell>{project.titulo}</TableCell>
                 <TableCell>{project.estudiante}</TableCell>
                 <TableCell>{project.profesor}</TableCell>
-                <TableCell><Button>{project.id}</Button></TableCell>
+                <TableCell>
+                  <Button variant='contained' onClick={() => handleOpenModal(project.id)}>
+                    ver
+                  </Button>
+                </TableCell>
+
               </TableRow>
             ))}
           </TableBody>
@@ -230,6 +252,13 @@ const ViewProject = () => {
           color="primary"
         />
       </Box>
+      {selectedProjectId !== null && (
+        <ProjectModal
+          open={modalOpen}
+          onClose={handleCloseModal}
+          projectId={selectedProjectId}
+        />
+      )}
     </Box>
   );
 };
