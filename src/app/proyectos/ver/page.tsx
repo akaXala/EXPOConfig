@@ -1,10 +1,7 @@
 'use client'
 
 import * as React from 'react';
-import { Typography, Grid, TextField, Container, ThemeProvider, CssBaseline } from "@mui/material";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import EnhancedTable from "@/components/table/ViewProjects"
+import { Typography, Grid,  ThemeProvider, CssBaseline } from "@mui/material";
 import NavBar from "@/components/NavBar";
 // Tema Custom
 import { theme } from '@/ts/customTheme';

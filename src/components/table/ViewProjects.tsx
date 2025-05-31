@@ -22,7 +22,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useEffect, useState, useMemo } from 'react';
 // Agrega al principio
-import ProjectModal from '@/components/table/ProjectModal'; // Ajusta la ruta según tu estructura
+import ProjectModal from '@/components/modals/ProjectModal'; // Ajusta la ruta según tu estructura
 
 
 
