@@ -67,6 +67,7 @@ CREATE TABLE Organizador (
 
 CREATE TABLE Profesor (
   NoTrabajador INT NOT NULL,
+  Evaluador BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (NoTrabajador),
   FOREIGN KEY (NoTrabajador) REFERENCES Usuario(NoTrabajador)
 );
