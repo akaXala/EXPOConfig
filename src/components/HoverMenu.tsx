@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Box, Popper, Paper, MenuList, MenuItem, ClickAwayListener } from '@mui/material';
+import { Box, Popper, Paper, MenuList, MenuItem, ClickAwayListener } from '@mui/material';
 
 // DOM de Next.js
 import Link from 'next/link';
@@ -56,6 +56,7 @@ export default function HoverMenu({ triggerText, menuItems }: HoverMenuProps) {
         placement="bottom"
         disablePortal
         modifiers={[{ name: 'offset', options: { offset: [0, 4] } }]}
+        sx={{ zIndex: 1 }}
       >
         <ClickAwayListener onClickAway={handleClose}>
           <Paper
