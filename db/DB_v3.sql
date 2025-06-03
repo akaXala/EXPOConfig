@@ -147,11 +147,3 @@ CREATE TABLE VisitaEvento (
   FOREIGN KEY (NoBoleta) REFERENCES Asistente(NoBoleta),
   FOREIGN KEY (IdEvento) REFERENCES Evento(IdEvento)
 );
-
-
-
-
-
-
-
- 
