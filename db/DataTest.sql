@@ -19,6 +19,25 @@ INSERT INTO Usuario (Nombre, ApPaterno, ApMaterno, FechaNacimiento, Sexo, Telefo
 VALUES ('Prueba', 'Prueba', '', '1990-01-01', 'Indefinido', '0123456789', 'pprueba4@administrador.expoconfig.mx', '$2b$10$Y1SgrwuWBcrury20hM0tOeBc4xz6xJAds3uxS.PzT513fTV3a4OsO');
 INSERT INTO Administrador (NoTrabajador) VALUES (4);
 
+-- Mas profesores
+INSERT INTO Usuario (Nombre, ApPaterno, ApMaterno, FechaNacimiento, Sexo, Telefono, Email, Contrasena)
+VALUES 
+('Laura', 'González', 'Ramírez', '1985-07-15', 'Femenino', '5512345678', 'lgonzalez@profesor.expoconfig.mx', '$2b$10$ow9uOKyb0JZWAMdqQ39mPO0oLVK3kh7MFtDEPiD8KHDdhFkO1eXsm'),
+('Carlos', 'Martínez', 'López', '1978-11-02', 'Masculino', '5523456789', 'cmartinez@profesor.expoconfig.mx', '$2b$10$ow9uOKyb0JZWAMdqQ39mPO0oLVK3kh7MFtDEPiD8KHDdhFkO1eXsm'),
+('Ana', 'Hernández', 'Soto', '1992-03-21', 'Femenino', '5534567890', 'ahernandez@profesor.expoconfig.mx', '$2b$10$ow9uOKyb0JZWAMdqQ39mPO0oLVK3kh7MFtDEPiD8KHDdhFkO1eXsm'),
+('Javier', 'Rodríguez', 'Mejía', '1980-09-10', 'Masculino', '5545678901', 'jrodriguez@profesor.expoconfig.mx', '$2b$10$ow9uOKyb0JZWAMdqQ39mPO0oLVK3kh7MFtDEPiD8KHDdhFkO1eXsm'),
+('Sofía', 'Vargas', 'Delgado', '1995-12-05', 'Femenino', '5556789012', 'svargas@profesor.expoconfig.mx', '$2b$10$ow9uOKyb0JZWAMdqQ39mPO0oLVK3kh7MFtDEPiD8KHDdhFkO1eXsm'),
+('Miguel', 'López', 'García', '1988-04-23', 'Masculino', '5567890123', 'mlopez@profesor.expoconfig.mx', '$2b$10$ow9uOKyb0JZWAMdqQ39mPO0oLVK3kh7MFtDEPiD8KHDdhFkO1eXsm');
+
+INSERT INTO Profesor (NoTrabajador) 
+VALUES
+(5), 
+(6),
+(7),
+(8),
+(9),
+(10);
+
 
 -- Estudiante
 INSERT INTO Estudiante (NoBoleta, Nombre, ApPaterno, ApMaterno, Carrera)

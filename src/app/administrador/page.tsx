@@ -1,31 +1,16 @@
 "use client";
 
-import { Button } from "@mui/material";
-import { useRouter } from 'next/navigation';
+import { Box } from "@mui/material";
 
 // Componente SweetAlert
 import { mostrarAlerta } from '@/components/sweetAlert/modalAlerts';
 
 export default function Home() {
-    const router = useRouter();
-
-    const logout = async() => {
-        try {
-            const response = await fetch("/api/logout", { method: "POST" });
-            if (response.ok) {
-            router.push('/'); // Redirigir al login
-            } else {
-            mostrarAlerta("Error al cerrar sesión", "No sabemos que ha pasado", "Aceptar", "error");
-            }
-        } catch (err) {
-            mostrarAlerta("Error al conectar con el servidor", `${err}`, "Aceptar", "error");
-        }
-    }
-
     return(
         <>
-            <p>Administrador</p>
-            <Button onClick={logout} variant="contained" color="error">Cerrar sesión administrador</Button>
+            <Box marginLeft={9} marginTop={9}>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe cupiditate exercitationem velit, autem ex eveniet corrupti eaque illum et!</p>
+            </Box>
         </>
     );
 }
