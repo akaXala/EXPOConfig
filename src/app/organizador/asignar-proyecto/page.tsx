@@ -13,7 +13,7 @@ export default function Home() {
         <ThemeProvider theme={theme} >
             <CssBaseline />
             <section>
-            <Grid container  spacing={2} marginX={{ xs:4,sm:10, md:20}}>
+            <Grid container  spacing={2} marginX={{ xs:4,sm:10, md:20}} marginTop={6}>
                 <Grid size={12} display="flex" justifyContent="center" pt={4}>
                 <Typography variant="h4">Asignar los profesores a los proyectos</Typography>
                 </Grid>
