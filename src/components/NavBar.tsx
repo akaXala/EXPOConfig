@@ -11,7 +11,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function NavBar() {
-    const proyectoItems = [{ text: 'Registro', url: '/proyectos/registros' }, { text: 'Ver', url: '/proyectos/ver' }, { text: 'Plantilla', url: '/proyectos/plantilla' }];
+    const proyectoItems = [{ text: 'Registro', url: '/proyectos/registro' }, { text: 'Ver', url: '/proyectos/ver' }, { text: 'Plantilla', url: '/proyectos/plantilla' }];
     const asistenciaItems = [{ text: 'Proyecto', url: '/asistencia/proyecto' }, { text: 'Evento', url: '/asistencia/evento' }];
     const eventosItems = [{ text: 'Postular', url: '/eventos/postular' }, { text: 'Ver', url: '/eventos/ver' }];
     const constanciaItems = [{ text: 'Asistencia', url: '/constancia/asistencia' }, { text: 'Participacion', url: '/constancia/participacion' }, { text: 'Justificante', url: '/constancia/justificante' }];

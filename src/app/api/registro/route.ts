@@ -30,7 +30,7 @@ export const POST = async (req: NextRequest) => {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(contrasena, saltRounds);
 
-        // Inseramos los datos en la DB
+        // Insertamos los datos en la DB
         const query = `
             INSERT INTO usuario (
                 nombre,

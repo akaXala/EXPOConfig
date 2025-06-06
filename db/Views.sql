@@ -38,3 +38,15 @@ INNER JOIN profesor prof ON es.notrabajador = prof.notrabajador
 INNER JOIN usuario u ON prof.notrabajador = u.notrabajador
 GROUP BY 
   pr.noproyecto, pr.nombre, pr.ua, pr.grupo, pr.academia;
+
+-- Vista para seleccionar al profesor tutor
+CREATE VIEW VistaProfesores AS
+SELECT
+    u.NoTrabajador,
+    u.Nombre,
+    u.ApPaterno,
+    u.ApMaterno
+FROM
+    Usuario u
+INNER JOIN
+    Profesor p ON u.NoTrabajador = p.NoTrabajador;
