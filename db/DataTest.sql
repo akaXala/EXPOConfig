@@ -96,3 +96,15 @@ VALUES
 ('2023770235', 15), ('2023661297', 1), ('2023117095', 13), ('2023401956', 12), ('2023580274', 11),
 ('2023147852', 10), ('2023258943', 9), ('2023014589', 8), ('2023661297', 9), ('2023098417', 6),
 ('2023117095', 5), ('2023401956', 4), ('2023580274', 3), ('2023147852', 2), ('2023770235', 1);
+
+INSERT INTO Asistente (NombreCompleto, Correo, Edad, Procedencia) VALUES
+('Luis Hernández', 'lhernandez@example.com', 25, 'Escom'),
+('María Torres', 'mtorres@example.com', 30, 'CECYT 3'),
+('Carlos Ramírez', 'cramirez@example.com', 22, 'familiares'),
+('Ana López', 'alopez@example.com', 28, 'Upiita'),
+('Jorge Martínez', 'jmartinez@example.com', 35, 'amigos'),
+('Laura Sánchez', 'lsanchez@example.com', 24, 'Escom'),
+('Pedro Gómez', 'pgomez@example.com', 29, 'CECYT 3'),
+('Sofía Díaz', 'sdiaz@example.com', 27, 'amigos'),
+('Daniel Fernández', 'dfernandez@example.com', 31, 'familiares'),
+('Valeria Cruz', 'vcruz@example.com', 26, 'Upiita');
