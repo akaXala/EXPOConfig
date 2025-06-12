@@ -8,12 +8,12 @@ CREATE TABLE Estudiante (
 );
 
 CREATE TABLE Asistente (
-  NoBoleta VARCHAR(10) NOT NULL,
+  IdAsistente SERIAL,
   NombreCompleto VARCHAR(100) NOT NULL,
   Correo VARCHAR(100) NOT NULL,
   Edad INT NOT NULL,
   Procedencia VARCHAR(100) NOT NULL,
-  PRIMARY KEY (NoBoleta)
+  PRIMARY KEY (IdAsistente)
 );
 
 CREATE TABLE Proyecto (
@@ -67,6 +67,7 @@ CREATE TABLE Organizador (
 
 CREATE TABLE Profesor (
   NoTrabajador INT NOT NULL,
+  Evaluador BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (NoTrabajador),
   FOREIGN KEY (NoTrabajador) REFERENCES Usuario(NoTrabajador)
 );
@@ -98,7 +99,7 @@ CREATE TABLE VisitaProyecto (
   NoBoleta VARCHAR(10) NOT NULL,
   NoProyecto INT NOT NULL,
   PRIMARY KEY (NoBoleta, NoProyecto),
-  FOREIGN KEY (NoBoleta) REFERENCES Asistente(NoBoleta),
+  FOREIGN KEY (NoBoleta) REFERENCES Asistente(IdAsistente),
   FOREIGN KEY (NoProyecto) REFERENCES Proyecto(NoProyecto)
 );
 
@@ -143,6 +144,6 @@ CREATE TABLE VisitaEvento (
   NoBoleta VARCHAR(10) NOT NULL,
   IdEvento INT NOT NULL,
   PRIMARY KEY (NoBoleta, IdEvento),
-  FOREIGN KEY (NoBoleta) REFERENCES Asistente(NoBoleta),
+  FOREIGN KEY (NoBoleta) REFERENCES Asistente(IdAsistente),
   FOREIGN KEY (IdEvento) REFERENCES Evento(IdEvento)
 );
