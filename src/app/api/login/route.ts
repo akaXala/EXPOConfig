@@ -59,8 +59,6 @@ export const POST = async (req: NextRequest) => {
 
         const { id, contrasena: hashedPassword } = result.rows[0];
 
-        console.log(hashedPassword);
-
         const isPasswordValid = await bcrypt.compare(contrasena, hashedPassword);
         if (!isPasswordValid) {
         return NextResponse.json(

@@ -109,7 +109,7 @@ export default function Home(){
 
     return(
         <Container maxWidth="sm">
-            <Box sx={{ my: 4, textAlign: 'center' }}>
+            <Box sx={{ textAlign: 'center' }} marginLeft={9} marginTop={9}>
                 <Typography variant="h4" component="h1" gutterBottom>
                     Subir plantilla del cartel
                 </Typography>
