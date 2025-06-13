@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       message: 'Archivo subido exitosamente.',
       fileName: uniqueFilename,
-      filePath: `/uploads/${uniqueFilename}`, // Ruta accesible si está en public/uploads
+      filePath: `/uploads/carteles/${uniqueFilename}`, // Ruta accesible si está en public/uploads
       size: file.size,
       type: file.type,
     }, { status: 200 });
