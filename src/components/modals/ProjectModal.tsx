@@ -16,6 +16,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SchoolIcon from '@mui/icons-material/School';
 import DownloadIcon from '@mui/icons-material/Download';
 import { useEffect, useState } from 'react';
+import DownloadPosterProject from '../button/DownloadPosterProject';
 
 type Estudiante = {
   noboleta: string;
@@ -100,15 +101,6 @@ export default function ProjectModal({ open, onClose, projectId }: ProjectModalP
       .finally(() => setLoading(false));
   }, [projectId, open]);
 
-  const handleDownload = () => {
-    if (data?.proyecto.cartel) {
-      const link = document.createElement('a');
-      link.href = data.proyecto.cartel;
-      link.download = 'cartel-proyecto.jpg'; // Puedes cambiar la extensión según sea necesario
-      link.click();
-    }
-  };
-
   return (
     <Modal open={open} onClose={onClose} aria-labelledby="project-modal-title">
       <Box sx={style}>
@@ -167,14 +159,10 @@ export default function ProjectModal({ open, onClose, projectId }: ProjectModalP
             )}
 
             <Stack direction="row" justifyContent="space-between" mt={3}>
-              <Button
-                variant="outlined"
-                startIcon={<DownloadIcon />}
-                onClick={handleDownload}
+              <DownloadPosterProject
+                url={data.proyecto.cartel}
                 disabled={!data.proyecto.cartel}
-              >
-                Descargar Cartel :3
-              </Button>
+              />
               <Button onClick={onClose} variant="outlined">
                 Cerrar
               </Button>
