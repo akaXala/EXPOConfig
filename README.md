@@ -29,7 +29,7 @@ Set-ExecutionPolicy Unrestricted # Permite que Yarn se ejecute en consola
 Clona el repositorio.
 
 ```bash
-git clone https://github.com/akaXala/proyectoAyDS.git
+git clone https://github.com/akaXala/EXPOConfig.git
 ```
 
 Para el instalar y ejecutar el proyecto usamos **yarn**.
