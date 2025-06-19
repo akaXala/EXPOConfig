@@ -241,7 +241,7 @@ export default function Home() {
             <CssBaseline />
             <main>
                 <Box
-                    marginX={{ xs: 2, md: 50 }}
+                    marginX={{ xs: 2, md: 40 }}
                     marginTop={2}
                     bgcolor="white"
                     padding={2}

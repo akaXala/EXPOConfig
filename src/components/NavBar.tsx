@@ -29,8 +29,6 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 
 // --- Componente custom ---
 import HoverMenu from '@/components/HoverMenu';
-import { hover } from 'motion';
-
 
 export default function NavBar() {
     const router = useRouter();
@@ -174,8 +172,36 @@ export default function NavBar() {
                             <Grid marginLeft={1}>
                                 <HoverMenu triggerText='Eventos' menuItems={eventosItems} />
                             </Grid>
-                            <Grid textAlign="center" marginLeft={1} marginBottom={0.2}>
-                                <Link href='/agenda'>Agenda</Link>
+                            <Grid textAlign="center" marginLeft={1}>
+                                <Link href='/agenda' passHref legacyBehavior>
+                                  <Typography
+                                    component="span"
+                                    sx={{
+                                      cursor: 'pointer',
+                                      position: 'relative',
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      paddingBottom: '5px',
+                                      '&::after': {
+                                        content: '""',
+                                        position: 'absolute',
+                                        width: '100%',
+                                        transform: 'scaleX(0)',
+                                        height: '2px',
+                                        bottom: 0,
+                                        left: 0,
+                                        backgroundColor: 'currentColor',
+                                        transformOrigin: 'center',
+                                        transition: 'transform 0.3s ease-out',
+                                      },
+                                      '&:hover::after': {
+                                        transform: 'scaleX(1)',
+                                      },
+                                    }}
+                                  >
+                                    Agenda
+                                  </Typography>
+                                </Link>
                             </Grid>
                             <Grid marginLeft={1}>
                                 <HoverMenu triggerText='Constancia' menuItems={constanciaItems} />
@@ -200,8 +226,6 @@ export default function NavBar() {
                 </Grid>
             </Box>
 
-            {/* ====== VISTA MÓVIL (NUEVO) ====== */}
-            {/* Se muestra solo en móvil, se oculta en escritorio. */}
             <Box sx={{
                 display: { xs: 'flex', md: 'none' },
                 justifyContent: 'space-between',
@@ -223,7 +247,6 @@ export default function NavBar() {
                 </IconButton>
             </Box>
             
-            {/* ====== DRAWER (MENÚ DESPLEGABLE) ====== */}
             <Drawer anchor="right" open={mobileOpen} onClose={handleDrawerToggle}>
                 {drawerContent}
             </Drawer>

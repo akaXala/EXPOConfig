@@ -113,6 +113,7 @@ export default function Home() {
         <Box
           id="details-section"
           sx={{height: '100vh'}}
+          bgcolor="#0000001b"
         >
           <Typography variant='h4' component="h2" gutterBottom sx={{ textAlign: 'center', mb: 5 }} paddingTop={{xs: 5, md: 10}}>
             Más detalles sobre EXPOESCOM
