@@ -260,7 +260,7 @@ VALUES
 ('Karina', 'Viveros', 'Vela', '1980-01-01', 'Femenino', '5510000236', 'kviveros@profesor.expoconfig.mx', '$2b$10$cAuzHga60qjWYH6fNRUQZe14t9z61hi7pw9P3Sw8PQvkkL4ayJgn2'),
 ('Ana María', 'Winfield', 'Reyes', '1980-01-01', 'Femenino', '5510000237', 'awinfield@profesor.expoconfig.mx', '$2b$10$cAuzHga60qjWYH6fNRUQZe14t9z61hi7pw9P3Sw8PQvkkL4ayJgn2'),
 ('Roberto Eswart', 'Zagal', 'Flores', '1980-01-01', 'Masculino', '5510000238', 'rzagal@profesor.expoconfig.mx', '$2b$10$cAuzHga60qjWYH6fNRUQZe14t9z61hi7pw9P3Sw8PQvkkL4ayJgn2'),
-('Alejandro', 'Zárate', 'Cárdenas', '1980-01-01', 'Masculino', '5510000239', 'azarate@profesor.expoconfig.mx', '$2b$10$cAuzHga60qjWYH6fNRUQZe14t9z61hi7pw9P3Sw8PQvkkL4ayJgn2');*
+('Alejandro', 'Zárate', 'Cárdenas', '1980-01-01', 'Masculino', '5510000239', 'azarate@profesor.expoconfig.mx', '$2b$10$cAuzHga60qjWYH6fNRUQZe14t9z61hi7pw9P3Sw8PQvkkL4ayJgn2');
 
 INSERT INTO Profesor (NoTrabajador)
 VALUES
@@ -312,10 +312,10 @@ VALUES
 --EsTutor <relacion>
 INSERT INTO estutor (noproyecto, notrabajador)
 VALUES 
-  (1, 1), (2, 1), (3, 1), (4, 2), (5, 2),
-  (6, 2), (7, 2), (8, 3), (9, 3), (10, 3),
-  (11, 1), (12, 1), (13, 4), (14, 4), (15, 4),
-  (16, 1), (17, 6), (18, 6), (19, 6), (20, 4);
+  (1, 1), (2, 1), (3, 1), (4, 20), (5, 20),
+  (6, 20), (7, 20), (8, 30), (9, 30), (10, 30),
+  (11, 1), (12, 1), (13, 40), (14, 40), (15, 40),
+  (16, 1), (17, 6), (18, 6), (19, 6), (20, 40);
 
 --ParticipaEstudiante <relacion>
 INSERT INTO ParticipaEstudiante (NoBoleta, NoProyecto)
