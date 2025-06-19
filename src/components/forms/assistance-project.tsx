@@ -22,6 +22,7 @@ import {
 } from '@mui/icons-material';
 
 import { SvgIconProps } from '@mui/material/SvgIcon';
+import { mostrarAlerta } from '@/components/sweetAlert/modalAlerts';
 
 interface Project {
   idproyecto: number;
@@ -116,7 +117,7 @@ export default function AssistanceProject() {
 
     const payload = {
       idproyecto: selectedProject.id,
-      nombre: form.nombreCompleto,
+      nombreCompleto: form.nombreCompleto,
       correo: form.correo,
       edad: parseInt(form.edad, 10),
       procedencia: form.procedencia,
@@ -125,8 +126,8 @@ export default function AssistanceProject() {
     };
 
     // Validación simple
-    if (!payload.nombre || !payload.correo || !payload.edad) {
-        alert('Por favor, completa los campos de nombre, correo y edad.');
+    if (!payload.nombreCompleto || !payload.correo || !payload.edad) {
+        mostrarAlerta('Campos incompletos', 'Por favor, completa los campos de nombre, correo y edad.', 'OK', 'warning');
         return;
     }
 
@@ -142,7 +143,7 @@ export default function AssistanceProject() {
       }
 
       await response.json();
-      alert('Asistencia registrada con éxito');
+      mostrarAlerta('¡Éxito!', 'Asistencia registrada con éxito', 'OK', 'success');
 
       // Limpiar formulario
       setForm({
@@ -160,7 +161,7 @@ export default function AssistanceProject() {
       }
     } catch (error) {
       console.error('Error al enviar la asistencia:', error);
-      alert('Hubo un error al registrar la asistencia.');
+      mostrarAlerta('Error', 'Hubo un error al registrar la asistencia.', 'OK', 'error');
     }
   };
 
@@ -272,11 +273,6 @@ export default function AssistanceProject() {
           rows={3}
           fullWidth
           disabled={isDisabled}
-          sx={{
-            '& .MuiInputBase-input': {
-              paddingLeft: 2,
-            },
-          }}
         />
 
         <Button

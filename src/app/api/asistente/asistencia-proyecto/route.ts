@@ -15,9 +15,13 @@ export async function POST(req: NextRequest) {
       'observaciones',
     ];
 
+    console.log(body);
+
     const faltantes = camposObligatorios.filter(
       (campo) => body[campo] === undefined || body[campo] === ''
     );
+
+    console.log('Campos faltantes:', faltantes);
 
     if (faltantes.length > 0) {
       return NextResponse.json(
