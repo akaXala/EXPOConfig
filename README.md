@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # EXPOConfig ISW 2025-2
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
@@ -105,3 +106,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
       |_|  |_|        |_||
        \_\  \_\        \_\\
 ```
+=======
+# ISW
+>>>>>>> f61061a7eaadd9bf85d83f241d957d59d02f5d28
