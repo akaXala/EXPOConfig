@@ -67,13 +67,13 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
-  maxHeight: '80vh',
+  width: {xs: '90%', md: '50%'},
+  maxHeight: '85vh',
   overflowY: 'auto',
   bgcolor: 'background.paper',
   borderRadius: 2,
   boxShadow: 24,
-  p: 4,
+  p: {xs: 1, md: 4},
 };
 
 export default function ProjectModal({ open, onClose, projectId }: ProjectModalProps) {

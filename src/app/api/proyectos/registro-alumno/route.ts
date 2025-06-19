@@ -22,7 +22,19 @@ export const POST = async (req: NextRequest) => {
             );
         }
 
-        // Insertamos los datos en la DB
+        // Verifica si el alumno ya existe
+        const checkQuery = `SELECT noboleta FROM estudiante WHERE noboleta = $1`;
+        const checkResult = await pool.query(checkQuery, [noboleta]);
+
+        if ((checkResult.rowCount ?? 0) > 0) {
+            // Ya existe, regresa el id (noboleta)
+            return NextResponse.json(
+                { success: true, id: checkResult.rows[0].noboleta, alreadyExists: true },
+                { status: 200 }
+            );
+        }
+
+        // Si no existe, inserta el alumno
         const query = `
             INSERT INTO estudiante (
                 noboleta,
@@ -32,7 +44,7 @@ export const POST = async (req: NextRequest) => {
                 carrera
             ) VALUES ($1, $2, $3, $4, $5)
             RETURNING noboleta;
-        `
+        `;
 
         // Escribimos los valores
         const values = [
@@ -47,14 +59,14 @@ export const POST = async (req: NextRequest) => {
         const result = await pool.query(query, values);
 
         return NextResponse.json(
-            { success: true, id: result.rows[0].noboleta },
+            { success: true, id: result.rows[0].noboleta, alreadyExists: false },
             { status: 201 }
-        )
+        );
     } catch (error) {
         console.error("Error en el registro: ", error);
         return NextResponse.json(
             { success: false, error: "Error interno del servidor" },
             { status: 500 }
-        )
+        );
     }
 }

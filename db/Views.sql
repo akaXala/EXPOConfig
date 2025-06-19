@@ -50,3 +50,21 @@ FROM
     Usuario u
 INNER JOIN
     Profesor p ON u.NoTrabajador = p.NoTrabajador;
+
+-- Vista: vista_usuarios_roles
+CREATE OR REPLACE VIEW vista_usuarios_roles AS
+SELECT
+    u.*,
+    CONCAT(u.nombre, ' ', u.appaterno, ' ', u.apmaterno) AS nombre_completo,
+    CASE
+        WHEN p.notrabajador IS NOT NULL THEN 'Profesor'
+        WHEN a.notrabajador IS NOT NULL THEN 'Administrador'
+        WHEN i.notrabajador IS NOT NULL THEN 'Impresiones'
+        WHEN o.notrabajador IS NOT NULL THEN 'Organizador'
+        ELSE 'sin rol'
+    END AS rol
+FROM usuario u
+LEFT JOIN profesor p ON u.notrabajador = p.notrabajador
+LEFT JOIN administrador a ON u.notrabajador = a.notrabajador
+LEFT JOIN impresiones i ON u.notrabajador = i.notrabajador
+LEFT JOIN organizador o ON u.notrabajador = o.notrabajador;
