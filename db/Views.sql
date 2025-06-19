@@ -24,12 +24,12 @@ INNER JOIN administrador a ON u.notrabajador = a.notrabajador;
 CREATE VIEW dashboardproyectoview AS
 SELECT 
   pr.noproyecto AS idproyecto,
-  STRING_AGG(DISTINCT e.nombre || ' ' || e.appaterno || ' ' || e.apmaterno, ', ') AS estudiante,
+  STRING_AGG(DISTINCT e.nombre || ' ' || e.appaterno || ' ' || COALESCE(e.apmaterno, ''), ', ') AS estudiante,
   pr.nombre AS nombre_proyecto,
   pr.ua,
   pr.grupo,
   pr.academia,
-  STRING_AGG(DISTINCT u.nombre || ' ' || u.appaterno || ' ' || u.apmaterno, ', ') AS profesor
+  STRING_AGG(DISTINCT u.nombre || ' ' || u.appaterno || ' ' ||  COALESCE(u.ApMaterno, ''), ', ') AS profesor
 FROM proyecto pr
 INNER JOIN participaestudiante pe ON pr.noproyecto = pe.noproyecto
 INNER JOIN estudiante e ON pe.noboleta = e.noboleta

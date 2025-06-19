@@ -3,13 +3,16 @@
 import * as React from 'react';
 
 // Componentes MUI
-import { Box, Grid, Typography, Button, TextField, MenuItem } from '@mui/material'
+import { Box, Grid, Typography, Button, TextField, MenuItem, ThemeProvider, CssBaseline } from '@mui/material'
 
 // Componente SweetAlert
 import { mostrarAlerta } from '@/components/sweetAlert/modalAlerts';
 
 // Validaciones
 import { expresiones, mensajesError } from "@/ts/validationsSpecial";
+
+// Tema Custom
+import { theme } from '@/ts/customTheme';
 
 // Componentes MUI X
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -234,28 +237,26 @@ export default function Home() {
     };
 
     return(
-        <div>
-            <header>
-                <Grid container spacing={2} alignItems="center" justifyContent="center" marginTop={1}>
-                    <Typography variant='h3'>EXPOConfig 25/2</Typography>
-                    <Image
-                        src="/IconEXPOConfig.webp"
-                        alt="Logo EXPOConfig"
-                        width={50}
-                        height={50}
-                        priority
-                    />
-                    <Typography variant="caption" gutterBottom sx={{ display: 'block' }}>ADMIN</Typography>
-                </Grid>
-            </header>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
             <main>
-                <Box sx={{ flexGrow: 1 }} marginTop={1} >
+                <Box
+                    marginX={{ xs: 2, md: 50 }}
+                    marginTop={2}
+                    bgcolor="white"
+                    padding={2}
+                    borderRadius={2}
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
                     <Grid container spacing={2} alignItems="center" justifyContent="center" margin={1} marginTop={2}>
-                        <Typography variant='h5' className='text-center'>
+                        <Typography variant="h4" sx={{ fontWeight: 'bold', textAlign: 'center', mb: 2 }}>
                             Registros usuarios
                         </Typography>
                     </Grid>
-                    <Grid container spacing={2} alignItems="center" justifyContent="center" margin={1} marginTop={2}>
+                    <Grid container spacing={2} alignItems="center" justifyContent="center" margin={1}>
                         <form onSubmit={handleSubmit}>
                             <Box margin={2}>
                                 <TextField
@@ -350,7 +351,7 @@ export default function Home() {
                                 <TextField
                                 id="tipo-usuario"
                                 select
-                                label="Tipo de Usario"
+                                label="Tipo de Usuario"
                                 value={formData.usuario}
                                 onChange={handleSelectChangeUser}
                                 size="small"
@@ -377,6 +378,6 @@ export default function Home() {
                     </Grid>
                 </Box>
             </main>
-        </div>
+        </ThemeProvider>
     );
 }

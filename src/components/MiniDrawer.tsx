@@ -40,6 +40,7 @@ interface DrawerItem {
 interface MiniDrawerProps {
   items: DrawerItem[];
   title?: string;
+  children?: React.ReactNode; // <-- Agrega esto
 }
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -124,7 +125,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer({ items, title = "Mini variant drawer" }: MiniDrawerProps) {
+export default function MiniDrawer({ items, title = "Mini variant drawer", children }: MiniDrawerProps) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -334,6 +335,10 @@ export default function MiniDrawer({ items, title = "Mini variant drawer" }: Min
           </ListItem>
         </List>
       </Drawer>
+      <Box component="main" sx={{flexGrow: 1, p: 1}}>
+        <DrawerHeader />
+        {children} {/* <-- Aquí se renderiza el contenido dinámico */}
+      </Box>
     </Box>
   );
 }

@@ -9,12 +9,14 @@ import { Box, Grid, TextField, Typography, ThemeProvider, CssBaseline, Button, S
 import { AttachFile, UploadFile as UploadFileIcon, Clear as ClearIcon } from '@mui/icons-material';
 
 // Tema Custom
-import { theme } from '@/ts/customTheme';
+import { theme, primaryColor, buttonColor } from '@/ts/customTheme';
 
 // Alertas SweetAlert
 import { mostrarAlerta } from '@/components/sweetAlert/modalAlerts';
 
-// INTERFAZ MODIFICADA: Se quita no_integrantes.
+// Componenetes custom
+import NavBar from '@/components/NavBar';
+
 interface FormDataIntegrantes {
     no_boleta: string;
     nombre: string;
@@ -45,9 +47,13 @@ const Carreras = [
     { carrera: "Ingeniería en Sistemas Computacionales" },
     { carrera: "Ingeniería en Inteligencia Artificial" },
     { carrera: "Licenciatura en Ciencia de Datos" }
-]
+];
 
 export default function Home() {
+    // Estado para saber si estamos en el cliente (Evitar error de hidratación)
+    const [mounted, setMounted] = React.useState(false);
+    React.useEffect(() => {setMounted(true); }, []);
+
     // Estados para el archivo
     const [file, setFile] = React.useState<File | null>(null);
     const [message, setMessage] = React.useState<string>('');
@@ -362,21 +368,29 @@ export default function Home() {
         }
     }
 
+    if (!mounted) return null;
+
     return(
-        <div>
-            <ThemeProvider theme={theme} >
-                <CssBaseline />
-                <Grid container spacing={5} alignItems="center" justifyContent="center" className="text-center" marginX={5}>
+        <ThemeProvider theme={theme} >
+            <CssBaseline />
+            <header>
+                <NavBar />
+            </header>
+            <Grid container spacing={2} alignItems="center" justifyContent="center" className="text-center" marginX={{xs: 2, md: 10}} marginTop={2} bgcolor="white" padding={2} borderRadius={2}>
+                <Grid size={12} display="flex" justifyContent="center" p={1} textAlign="center" alignContent="center">
+                    <Typography variant="h4" sx={{ fontWeight: 'bold' }}>Registro</Typography>
+                </Grid>
+                <Box sx={{ width: '100%' }}>
                     <Accordion
                         expanded={expanded}
-                        sx={{ width: '100%' }}
+                        sx={{ width: '100%', marginBottom: 0 }}
                     >
                         <AccordionSummary>
-                            <Typography>Registro de alumnos</Typography>
+                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Registro de alumnos</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <form onSubmit={handleSubmitI}>
-                                <Grid container spacing={2} marginTop={2}>
+                                <Grid container spacing={2}>
                                     <Grid size={12} alignItems="start" justifyContent="start" className="text-left">
                                         <Typography>Seleccione el número de integrantes</Typography>
                                     </Grid>
@@ -388,6 +402,26 @@ export default function Home() {
                                             size="small"
                                             value={numIntegrantes}
                                             onChange={handleIntegrantesChange}
+                                            sx={{
+                                                '& .MuiOutlinedInput-root': {
+                                                    paddingLeft: 0,
+                                                    '& .MuiOutlinedInput-notchedOutline': {
+                                                        borderColor: primaryColor,
+                                                    },
+                                                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                                                        borderColor: primaryColor,
+                                                    },
+                                                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                                        borderColor: primaryColor,
+                                                    },
+                                                },
+                                                '& .MuiInputLabel-root': {
+                                                    color: primaryColor,
+                                                    '&.Mui-focused': {
+                                                        color: primaryColor,
+                                                    }
+                                                },
+                                            }}
                                             className='text-field'
                                             required
                                         >
@@ -486,10 +520,10 @@ export default function Home() {
                     </Accordion>
                     <Accordion
                         expanded={!expanded}
-                        sx={{ width: '100%' }}
+                        sx={{ width: '100%', marginTop: 0 }}
                     >
                         <AccordionSummary>
-                            <Typography>Registro de cartel</Typography>
+                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>Registro de cartel</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <form onSubmit={handleSubmit}>
@@ -540,7 +574,7 @@ export default function Home() {
                                     </Grid>
                                     <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
                                         <TextField 
-                                            name="profesor" // <-- CAMBIA id por name
+                                            name="profesor"
                                             label="Profesor tutor"
                                             size="small"
                                             value={formData.profesor || ""}
@@ -619,8 +653,8 @@ export default function Home() {
                             </form>
                         </AccordionDetails>
                     </Accordion>
-                </Grid>
-            </ThemeProvider>
-        </div>
+                </Box>
+            </Grid>
+        </ThemeProvider>
     );
 }

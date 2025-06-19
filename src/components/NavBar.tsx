@@ -1,66 +1,232 @@
 "use client";
 
-// Componentes MUI
-import { Box, Grid, Typography, Divider } from '@mui/material';
-
-// Componente custom
-import HoverMenu from '@/components/HoverMenu';
-
-// DOM de Next.js
+// --- React y Next.js ---
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+// --- Componentes MUI ---
+import {
+    Box,
+    Grid,
+    Typography,
+    Divider,
+    IconButton,
+    Drawer,
+    List,
+    ListItemButton,
+    ListItemText,
+    ListItemIcon,
+    Collapse
+} from '@mui/material';
+
+// --- Iconos MUI ---
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuIcon from '@mui/icons-material/Menu';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+
+// --- Componente custom ---
+import HoverMenu from '@/components/HoverMenu';
+import { hover } from 'motion';
+
 
 export default function NavBar() {
+    const router = useRouter();
+
+    // --- Estado para el Drawer (menú móvil) ---
+    const [mobileOpen, setMobileOpen] = useState(false);
+    
+    // --- Estados para las listas colapsables en el Drawer ---
+    const [openProyectos, setOpenProyectos] = useState(false);
+    const [openAsistencia, setOpenAsistencia] = useState(false);
+    const [openEventos, setOpenEventos] = useState(false);
+    const [openConstancia, setOpenConstancia] = useState(false);
+
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
+
+    // --- Opciones para los menús (sin cambios) ---
     const proyectoItems = [{ text: 'Registro', url: '/proyectos/registro' }, { text: 'Ver', url: '/proyectos/ver' }, { text: 'Plantilla', url: '/proyectos/plantilla' }];
     const asistenciaItems = [{ text: 'Proyecto', url: '/asistencia/proyecto' }, { text: 'Evento', url: '/asistencia/evento' }];
     const eventosItems = [{ text: 'Postular', url: '/eventos/postular' }, { text: 'Ver', url: '/eventos/ver' }];
     const constanciaItems = [{ text: 'Asistencia', url: '/constancia/asistencia' }, { text: 'Participacion', url: '/constancia/participacion' }, { text: 'Justificante', url: '/constancia/justificante' }];
-    
-    return(
+
+    const homeButton = () => router.push("/");
+    const accountButton = () => router.push("/login");
+
+    // Contenido del Drawer (Menú móvil)
+    const drawerContent = (
+        <Box sx={{ width: 250, padding: 2 }} role="presentation">
+            <Typography variant="h6" sx={{ marginBottom: 2 }}>Menú</Typography>
+            <Divider />
+            <List>
+                {/* Proyectos */}
+                <ListItemButton onClick={() => setOpenProyectos(!openProyectos)}>
+                    <ListItemText primary="Proyectos" />
+                    {openProyectos ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openProyectos} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        {proyectoItems.map((item) => (
+                            <ListItemButton key={item.text} sx={{ pl: 4 }} component={Link} href={item.url} onClick={handleDrawerToggle}>
+                                <ListItemText primary={item.text} />
+                            </ListItemButton>
+                        ))}
+                    </List>
+                </Collapse>
+
+                 {/* Asistencia */}
+                <ListItemButton onClick={() => setOpenAsistencia(!openAsistencia)}>
+                    <ListItemText primary="Asistencia" />
+                    {openAsistencia ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openAsistencia} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        {asistenciaItems.map((item) => (
+                            <ListItemButton key={item.text} sx={{ pl: 4 }} component={Link} href={item.url} onClick={handleDrawerToggle}>
+                                <ListItemText primary={item.text} />
+                            </ListItemButton>
+                        ))}
+                    </List>
+                </Collapse>
+
+                {/* Eventos */}
+                <ListItemButton onClick={() => setOpenEventos(!openEventos)}>
+                    <ListItemText primary="Eventos" />
+                    {openEventos ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openEventos} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        {eventosItems.map((item) => (
+                            <ListItemButton key={item.text} sx={{ pl: 4 }} component={Link} href={item.url} onClick={handleDrawerToggle}>
+                                <ListItemText primary={item.text} />
+                            </ListItemButton>
+                        ))}
+                    </List>
+                </Collapse>
+
+                {/* Agenda */}
+                <ListItemButton component={Link} href='/agenda' onClick={handleDrawerToggle}>
+                    <ListItemText primary="Agenda" />
+                </ListItemButton>
+
+                {/* Constancia */}
+                <ListItemButton onClick={() => setOpenConstancia(!openConstancia)}>
+                    <ListItemText primary="Constancia" />
+                    {openConstancia ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openConstancia} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        {constanciaItems.map((item) => (
+                            <ListItemButton key={item.text} sx={{ pl: 4 }} component={Link} href={item.url} onClick={handleDrawerToggle}>
+                                <ListItemText primary={item.text} />
+                            </ListItemButton>
+                        ))}
+                    </List>
+                </Collapse>
+            </List>
+            <Divider sx={{ marginY: 2 }} />
+            <ListItemButton onClick={() => { accountButton(); handleDrawerToggle(); }}>
+                <ListItemIcon> <AccountCircleIcon /> </ListItemIcon>
+                <ListItemText primary="Cuenta" />
+            </ListItemButton>
+        </Box>
+    );
+
+    return (
         <>
-            <Box sx={{ flexGrow: 1 }} marginTop={1} >
-                <Grid container spacing={2} alignItems="center" justifyContent="center" marginTop={1}>
-                <Typography variant='h3'>EXPOConfig 25/2</Typography>
-                <Image
-                    src="/IconEXPOConfig.webp"
-                    alt="Logo EXPOConfig"
-                    width={50}
-                    height={50}
-                    priority
-                />
+            {/* Se oculta en móvil, se muestra en escritorio */}
+            <Box sx={{
+                flexGrow: 1,
+                paddingTop: 0.5,
+                bgcolor: 'white',
+                alignContent: "center",
+                justifyContent: "center",
+                display: { xs: 'none', md: 'block' }
+            }}>
+                <Grid container alignItems="center" justifyContent="space-between" marginY={2}>
+                    {/* Logo y Título a la izquierda */}
+                    <Grid>
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid marginLeft={3}>
+                                <Image
+                                    src="/IconEXPOConfig.webp"
+                                    alt="Logo EXPOConfig"
+                                    width={50}
+                                    height={50}
+                                    priority
+                                    onClick={homeButton}
+                                    style={{ cursor: 'pointer' }}
+                                />
+                            </Grid>
+                            <Grid>
+                                <Typography variant='h4'>EXPOConfig 25/2</Typography>
+                            </Grid>
+                            <Grid marginLeft={3}>
+                                <HoverMenu triggerText='Proyectos' menuItems={proyectoItems} />
+                            </Grid>
+                            <Grid marginLeft={1}>
+                                <HoverMenu triggerText='Asistencia' menuItems={asistenciaItems} />
+                            </Grid>
+                            <Grid marginLeft={1}>
+                                <HoverMenu triggerText='Eventos' menuItems={eventosItems} />
+                            </Grid>
+                            <Grid textAlign="center" marginLeft={1} marginBottom={0.2}>
+                                <Link href='/agenda'>Agenda</Link>
+                            </Grid>
+                            <Grid marginLeft={1}>
+                                <HoverMenu triggerText='Constancia' menuItems={constanciaItems} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    {/* Menú a la derecha */}
+                    <Grid>
+                        <Box>
+                            <Grid container spacing={2} alignItems="center" justifyContent="flex-end" paddingRight={5}>
+                                <div
+                                    onClick={accountButton}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <AccountCircleIcon
+                                        sx={{ fontSize: 30 }}
+                                    />
+                                </div>
+                            </Grid>
+                        </Box>
+                    </Grid>
                 </Grid>
             </Box>
-            <Box marginY={2} bgcolor={"#6699CC"} paddingY={2}>
-                <Grid container spacing={2} alignItems="center" justifyContent="center" marginX={5}>
-                    <Grid size={{ xs: 4, md: 2}}>
-                        <HoverMenu triggerText='Proyectos' menuItems={proyectoItems} />
-                        <Divider orientation="vertical" flexItem />
+
+            {/* ====== VISTA MÓVIL (NUEVO) ====== */}
+            {/* Se muestra solo en móvil, se oculta en escritorio. */}
+            <Box sx={{
+                display: { xs: 'flex', md: 'none' },
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: 1.5,
+                bgcolor: 'white'
+            }}>
+                <Grid container spacing={1.5} alignItems="center">
+                    <Grid>
+                        <Image src="/IconEXPOConfig.webp" alt="Logo EXPOConfig" width={40} height={40} priority />
                     </Grid>
-                    <Grid size={{ xs: 4, md: 2}}>
-                        <HoverMenu triggerText='Asistencia' menuItems={asistenciaItems} />
-                    </Grid>
-                    <Grid size={{ xs: 4, md: 2}}>
-                        <HoverMenu triggerText='Eventos' menuItems={eventosItems} />
-                    </Grid>
-                    <Grid size={{ xs: 4, md: 2}} textAlign="center">
-                        <Link
-                        href='/agenda'
-                        >
-                        Agenda
-                        </Link>
-                    </Grid>
-                    <Grid size={{ xs: 4, md: 2}}>
-                        <HoverMenu triggerText='Constancia' menuItems={constanciaItems} />
-                    </Grid>
-                    <Grid size={{ xs: 4, md: 2}} textAlign="center">
-                        <Link
-                        href='/login'
-                        >
-                        Log In
-                        </Link>
+                    <Grid>
+                        <Typography variant='h5' component="div">EXPOConfig</Typography>
                     </Grid>
                 </Grid>
+
+                <IconButton color="inherit" aria-label="open drawer" edge="end" onClick={handleDrawerToggle}>
+                    <MenuIcon sx={{ fontSize: 35, color: 'black' }} />
+                </IconButton>
             </Box>
+            
+            {/* ====== DRAWER (MENÚ DESPLEGABLE) ====== */}
+            <Drawer anchor="right" open={mobileOpen} onClose={handleDrawerToggle}>
+                {drawerContent}
+            </Drawer>
         </>
     );
 }

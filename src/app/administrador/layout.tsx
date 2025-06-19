@@ -20,11 +20,8 @@ export default function OrganizadorLayout({
     ]
 
     return (
-        <div>
-            <MiniDrawer items={drawerItems} title="Administrador" />
-            <main>
-                {children}
-            </main>
-        </div>
+        <MiniDrawer items={drawerItems} title="Administrador">
+            {children}
+        </MiniDrawer>
     );
 }

@@ -213,8 +213,19 @@ export default function Home() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ textAlign: 'center' }} marginLeft={9} marginTop={9}>
-        <Typography variant='h3' gutterBottom>
+      <Box
+        marginX={{ xs: 2, md: 10 }}
+        marginTop={2}
+        bgcolor="white"
+        padding={2}
+        borderRadius={2}
+        width="80wh"
+        height="83vh"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography variant='h4' sx={{ fontWeight: 'bold', textAlign: 'center', mb: 2 }}>
           Administrar usuarios
         </Typography>
         <Box marginTop={4}>

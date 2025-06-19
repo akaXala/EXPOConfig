@@ -4,6 +4,9 @@ import { Box, Popper, Paper, MenuList, MenuItem, ClickAwayListener } from '@mui/
 // DOM de Next.js
 import Link from 'next/link';
 
+// Iconos MUI
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 // Para personalizar el componente desde el componente padre
 interface MenuItemData {
   text: string;
@@ -40,15 +43,17 @@ export default function HoverMenu({ triggerText, menuItems }: HoverMenuProps) {
 
   return (
     <Box textAlign="center">
-      <p
-        aria-describedby="hover-popper"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        style={{ cursor: 'pointer' }}
-      >
-        {triggerText}
-      </p>
-
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <p
+          aria-describedby="hover-popper"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          style={{ cursor: 'pointer' }}
+        >
+          {triggerText}
+          <KeyboardArrowDownIcon/>
+        </p>
+      </Box>
       <Popper
         id="hover-popper"
         open={open}

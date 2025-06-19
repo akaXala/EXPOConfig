@@ -1,16 +1,49 @@
 "use client";
 
-import { Box } from "@mui/material";
+// React
+import * as React from 'react';
 
-// Componente SweetAlert
-import { mostrarAlerta } from '@/components/sweetAlert/modalAlerts';
+// Componentes MUI
+import { Box, Typography, ThemeProvider, CssBaseline, Grid } from '@mui/material';
+
+// Tema Custom
+import { theme } from '@/ts/customTheme';
+import Image from 'next/image';
 
 export default function Home() {
-    return(
-        <>
-            <Box marginLeft={9} marginTop={9}>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius saepe cupiditate exercitationem velit, autem ex eveniet corrupti eaque illum et!</p>
+    // Estado para saber si estamos en el cliente (Evitar error de hidratación)
+    const [mounted, setMounted] = React.useState(false);
+    React.useEffect(() => { setMounted(true); }, []);
+
+    if (!mounted) return null;
+
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Box
+                marginX={{ xs: 2, md: 10 }}
+                marginTop={2}
+                bgcolor="white"
+                padding={2}
+                borderRadius={2}
+                width="80wh"
+                height="83vh"
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <Typography variant="h4" sx={{ fontWeight: 'bold', textAlign: 'center', mb: 2 }}>
+                    Bienvenido administrador
+                </Typography>
+                <Image
+                    src="/LogoEXPOConfig.webp"
+                    alt="Logo EXPOConfig"
+                    width={400}
+                    height={400}
+                    priority
+                />
             </Box>
-        </>
+        </ThemeProvider>
     );
 }

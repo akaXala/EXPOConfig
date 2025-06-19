@@ -96,10 +96,12 @@ CREATE TABLE ParticipaEstudiante (
 );
 
 CREATE TABLE VisitaProyecto (
-  NoBoleta VARCHAR(10) NOT NULL,
+  IdAsistente INT NOT NULL,
   NoProyecto INT NOT NULL,
-  PRIMARY KEY (NoBoleta, NoProyecto),
-  FOREIGN KEY (NoBoleta) REFERENCES Asistente(IdAsistente),
+  Observaciones VARCHAR(500) NULL,
+  Satisfaccion INT NOT NULL,
+  PRIMARY KEY (IdAsistente, NoProyecto),
+  FOREIGN KEY (IdAsistente) REFERENCES Asistente(IdAsistente),
   FOREIGN KEY (NoProyecto) REFERENCES Proyecto(NoProyecto)
 );
 
@@ -141,9 +143,11 @@ CREATE TABLE Expone (
 );
 
 CREATE TABLE VisitaEvento (
-  NoBoleta VARCHAR(10) NOT NULL,
+  IdAsistente INT NOT NULL,
   IdEvento INT NOT NULL,
-  PRIMARY KEY (NoBoleta, IdEvento),
-  FOREIGN KEY (NoBoleta) REFERENCES Asistente(IdAsistente),
+  Observaciones VARCHAR(500) NULL,
+  Satisfaccion INT NOT NULL,
+  PRIMARY KEY (IdAsistente, IdEvento),
+  FOREIGN KEY (IdAsistente) REFERENCES Asistente(IdAsistente),
   FOREIGN KEY (IdEvento) REFERENCES Evento(IdEvento)
 );

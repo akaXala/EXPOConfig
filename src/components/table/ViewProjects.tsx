@@ -16,6 +16,8 @@ import {
   Pagination,
   IconButton,
   Button,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -100,6 +102,8 @@ const ViewProject = () => {
     direction: 'asc',
   });
   const [page, setPage] = useState(1);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -167,7 +171,7 @@ const ViewProject = () => {
   };
 
   return (
-    <Box p={1}>
+    <Box>
       <TextField
         fullWidth
         size='small'
@@ -184,26 +188,30 @@ const ViewProject = () => {
           },
         }}
         sx={{ mb: 3 }}
+        className='text-field'
       />
 
       <Box display="flex" justifyContent="center" gap={2} flexWrap="wrap" mb={3}>
         {(['academia', 'semestre', 'carrera', 'materia', 'profesor'] as const).map((key) => (
-          <TextField
-            key={key}
-            select
-            size='small'
-            label={key.charAt(0).toUpperCase() + key.slice(1)}
-            value={filters[key]}
-            onChange={(e) => handleFilterChange(key, e.target.value)}
-            sx={{ minWidth: 180 }}
-          >
-            <MenuItem value="">Todos</MenuItem>
-            {(filteredOption.get(key) || []).map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
+          <Box key={key} sx={{ minWidth: { xs: '100%', md: 180 }, flex: '1 1 180px' }}>
+            <TextField
+              key={key}
+              select
+              size='small'
+              label={key.charAt(0).toUpperCase() + key.slice(1)}
+              value={filters[key]}
+              onChange={(e) => handleFilterChange(key, e.target.value)}
+              sx={{ minWidth: 180 }}
+              className='text-field'
+            >
+              <MenuItem value="">Todos</MenuItem>
+              {(filteredOption.get(key) || []).map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
         ))}
       </Box>
 
@@ -211,18 +219,39 @@ const ViewProject = () => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              {(['titulo', 'estudiante', 'profesor'] as const).map((key) => (
-                <TableCell key={key}>
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                  <IconButton onClick={() => handleSort(key)} size="small">
-                    {sortConfig.key === key && sortConfig.direction === 'asc' ? (
-                      <ArrowUpwardIcon fontSize="small" />
-                    ) : (
-                      <ArrowDownwardIcon fontSize="small" />
-                    )}
-                  </IconButton>
-                </TableCell>
-              ))}
+              <TableCell>Titulo
+                <IconButton onClick={() => handleSort('titulo')} size="small">
+                  {sortConfig.key === 'titulo' && sortConfig.direction === 'asc' ? (
+                    <ArrowUpwardIcon fontSize="small" />
+                  ) : (
+                    <ArrowDownwardIcon fontSize="small" />
+                  )}
+                </IconButton>
+              </TableCell>
+              {!isMobile && (
+                <>
+                  <TableCell>
+                    Estudiante
+                    <IconButton onClick={() => handleSort('estudiante')} size="small">
+                      {sortConfig.key === 'estudiante' && sortConfig.direction === 'asc' ? (
+                        <ArrowUpwardIcon fontSize="small" />
+                      ) : (
+                        <ArrowDownwardIcon fontSize="small" />
+                      )}
+                    </IconButton>
+                  </TableCell>
+                  <TableCell>
+                    Profesor
+                    <IconButton onClick={() => handleSort('profesor')} size="small">
+                      {sortConfig.key === 'profesor' && sortConfig.direction === 'asc' ? (
+                        <ArrowUpwardIcon fontSize="small" />
+                      ) : (
+                        <ArrowDownwardIcon fontSize="small" />
+                      )}
+                    </IconButton>
+                  </TableCell>
+                </>
+              )}
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -230,11 +259,15 @@ const ViewProject = () => {
             {paginatedProjects.map((project) => (
               <TableRow key={project.id}>
                 <TableCell>{project.titulo}</TableCell>
-                <TableCell>{project.estudiante}</TableCell>
-                <TableCell>{project.profesor}</TableCell>
+                {!isMobile && (
+                  <>
+                    <TableCell>{project.estudiante}</TableCell>
+                    <TableCell>{project.profesor}</TableCell>
+                  </>
+                )}
                 <TableCell>
                   <Button variant='contained' onClick={() => handleOpenModal(project.id)}>
-                    ver
+                    Ver
                   </Button>
                 </TableCell>
 
