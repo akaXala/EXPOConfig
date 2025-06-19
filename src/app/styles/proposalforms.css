@@ -1,0 +1,105 @@
+.proposal-form {
+  background: rgba(80, 30, 180, 0.17);
+  border-radius: 24px;
+  padding: 36px 48px;
+  max-width: 900px;
+  margin: 48px auto;
+  color: #fff;
+  box-shadow: 0 4px 32px #0002;
+}
+
+.proposal-form h1 {
+  font-size: 2.2rem;
+  margin-bottom: 24px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.proposal-row {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.proposal-col {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.proposal-form label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+}
+
+.proposal-form input,
+.proposal-form select,
+.proposal-form textarea {
+  margin-top: 4px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  color: #5f2eea;
+  background: #fff;
+  box-shadow: 0 2px 8px #0001;
+  resize: none;
+}
+
+.proposal-form textarea {
+  min-height: 80px;
+  max-width: 100%;
+}
+
+.proposal-error {
+  color: #ffb6b6;
+  font-size: 0.95em;
+  margin-top: 2px;
+  font-weight: normal;
+}
+
+.proposal-actions {
+  margin-top: 28px;
+  text-align: right;
+}
+
+.proposal-actions button {
+  background: #5f2eea;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.proposal-actions button:hover {
+  background: #3d1c8f;
+}
+
+.proposal-success {
+  background: rgba(80, 30, 180, 0.17);
+  border-radius: 24px;
+  padding: 48px;
+  max-width: 500px;
+  margin: 80px auto;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 32px #0002;
+}
+
+@media (max-width: 800px) {
+  .proposal-form {
+    padding: 24px 10px;
+  }
+  .proposal-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}

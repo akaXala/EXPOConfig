@@ -1,0 +1,195 @@
+/* ExpoESCOMProjects.css */
+/* Barra de búsqueda superior derecha */
+.expoescom-searchbar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.expoescom-searchbar {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 2px solid #5f2eea;
+  border-radius: 24px;
+  padding: 3px 10px 3px 8px;
+  width: 320px;
+  height: 38px;
+  background: transparent;
+  position: relative;
+}
+
+.expoescom-search-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.expoescom-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.1rem;
+  color: #5f2eea;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.expoescom-search-input::placeholder {
+  color: #a259f7;
+  opacity: 0.7;
+}
+
+/* Resto del CSS igual que antes... */
+.expoescom-container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(120deg, #a259f7 0%, #5f2eea 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.expoescom-left {
+  flex: 1;
+  padding: 48px 32px;
+  color: #fff;
+  background: rgba(80, 30, 180, 0.18);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 270px;
+}
+
+.expoescom-left h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.expoescom-semester {
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+}
+
+.expoescom-filters > div {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.expoescom-filters label {
+  font-weight: bold;
+  margin-right: 8px;
+  min-width: 110px;
+}
+
+.expoescom-filters select,
+.expoescom-filters input[type="date"] {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  background: #fff;
+  color: #5f2eea;
+  box-shadow: 0 2px 8px #0001;
+  min-width: 120px;
+}
+
+.expoescom-right {
+  flex: 2;
+  padding: 48px 32px;
+  background: rgba(255,255,255,0.09);
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+}
+
+.expoescom-searchbar {
+  margin-bottom: 24px;
+}
+
+.expoescom-searchbar input[type="search"] {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 18px;
+  border: none;
+  font-size: 1.1rem;
+  outline: none;
+  background: #fff;
+  color: #5f2eea;
+  box-shadow: 0 2px 8px #0001;
+}
+
+.expoescom-sort {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+}
+
+.expoescom-sort select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  background: #fff;
+  color: #5f2eea;
+  box-shadow: 0 2px 8px #0001;
+}
+
+.expoescom-project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+.expoescom-project-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #c5a6ff33;
+  font-size: 1.15rem;
+  color: #5f2eea;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  background: none;
+}
+
+.expoescom-project-item:hover {
+  background: #d1b3ff22;
+  color: #3d1c8f;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .expoescom-container {
+    flex-direction: column;
+  }
+  .expoescom-left, .expoescom-right {
+    min-width: unset;
+    width: 100%;
+    padding: 32px 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .expoescom-left h1 {
+    font-size: 2rem;
+  }
+  .expoescom-right {
+    padding: 24px 8px;
+  }
+  .expoescom-filters label {
+    min-width: 80px;
+    font-size: 0.98rem;
+  }
+}

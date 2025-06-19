@@ -1,0 +1,63 @@
+.qr-generator-bg {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #a259f7 0%, #5f2eea 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qr-generator-panel {
+  background: rgba(255,255,255,0.18);
+  padding: 48px 60px;
+  border-radius: 24px;
+  box-shadow: 0 4px 32px #0002;
+  text-align: center;
+}
+.qr-generator-panel h1 {
+  font-size: 2.3rem;
+  color: #fff;
+  margin-bottom: 32px;
+}
+.qr-generator-panel label {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  display: block;
+}
+.qr-generator-panel select {
+  margin-left: 16px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+}
+.qr-generator-qrbox {
+  background: #fff;
+  border-radius: 18px;
+  margin: 32px auto 16px auto;
+  padding: 24px 36px 16px 36px;
+  display: inline-block;
+}
+.qr-generator-qrbox h2 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: #5f2eea;
+}
+.qr-generator-caption {
+  font-size: 1.1rem;
+  margin-top: 18px;
+  color: #5f2eea;
+}
+.qr-generator-download {
+  margin-top: 24px;
+  background: #5f2eea;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.qr-generator-download:hover {
+  background: #3d1c8f;
+}
