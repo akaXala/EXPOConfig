@@ -63,7 +63,7 @@ export default function AssistanceProject() {
     edad: '',
     procedencia: '',
     satisfaccion: '4', // Valor por defecto para una mejor UX
-    observaciones: '',
+    observaciones: ' ',
   });
 
   const isDisabled = !selectedProject;
@@ -152,7 +152,7 @@ export default function AssistanceProject() {
         edad: '',
         procedencia: '',
         satisfaccion: '4',
-        observaciones: '',
+        observaciones: ' ',
       });
 
       if (!lockedByUrl) {
