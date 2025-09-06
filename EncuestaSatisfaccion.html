@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Encuesta de Satisfacción</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="encuesta-container">
+        <h2>Encuesta de Satisfacción</h2>
+        <form action="#" method="post">
+            <label for="proyecto">Proyecto:</label>
+            <select id="satisfaccion" name="satisfaccion" required>
+                <option value="">-- Selecciona una opción --</option>
+                <option value="p1">Proyecto 1</option>
+                <option value="p2">Proyecto 2</option>
+                <option value="p3">Proyecto 3</option>
+            </select>
+            
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="procedencia">Procedencia:</label>
+            <input type="text" id="procedencia" name="procedencia">
+
+            <label for="observaciones">Observaciones:</label>
+            <textarea id="observaciones" name="observaciones" rows="4"></textarea>
+
+            <label for="satisfaccion">Nivel de satisfacción:</label>
+            <select id="satisfaccion" name="satisfaccion" required>
+                <option value="">-- Selecciona una opción --</option>
+                <option value="malo">Malo</option>
+                <option value="regular">Regular</option>
+                <option value="excelente">Excelente</option>
+            </select>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>
